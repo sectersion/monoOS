@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonoOS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="h-screen w-screen overflow-hidden flex flex-col font-mono text-gray-800">
+
+    <img src="assets/images/background.jpg" class="fixed inset-0 w-full h-full object-cover -z-50" alt="Wallpaper">
+
+    <div id="menubar" class="h-8 bg-white/30 backdrop-blur-md border-b border-white/50 flex items-center justify-between px-4 z-50">
+        <span class="font-semibold text-sm">MonoOS</span>
+        <div id="clock" class="text-sm tabular-nums">--:--</div>
+    </div>
+
+    <div id="desktop" class="relative flex-grow overflow-hidden">
+        </div>
+
+    <div id="appbar" class="absolute bottom-4 left-1/2 -translate-x-1/2 h-16 px-6 bg-white/30 backdrop-blur-md border border-white/50 rounded-3xl shadow-xl flex items-center justify-center gap-4 z-50">
+        <div id="notepad" class="w-10 h-10 bg-blue-500 rounded-xl cursor-pointer hover:scale-105 transition-transform"></div>
+        <div id="aboutme" class="w-10 h-10 bg-purple-500 rounded-xl cursor-pointer hover:scale-105 transition-transform"></div>
+        <div id="terminal" class="w-10 h-10 bg-green-500 rounded-xl cursor-pointer hover:scale-105 transition-transform"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

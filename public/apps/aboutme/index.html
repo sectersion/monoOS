@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>sectersion — about.me</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+  .cursor { animation: blink 1s step-end infinite; }
+  @keyframes dot-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+  .status-dot { animation: dot-pulse 1.6s ease-in-out infinite; }
+  @keyframes bar-pulse { 0%, 100% { opacity: 0.3; transform: scaleY(0.75); } 50% { opacity: 1; transform: scaleY(1); } }
+  .sig-bar { display: inline-block; transform-origin: bottom; animation: bar-pulse 1.2s ease-in-out infinite; }
+  .text-emerald-700 { text-shadow: 0 0 6px rgba(16,185,129,0.45); }
+  #terminal-body p, #terminal-body pre, #terminal-body div {
+    transition: text-shadow 0.15s ease;
+  }
+  #terminal-body p:hover, #terminal-body pre:hover, #terminal-body div:hover {
+    text-shadow: 0 0 8px rgba(55,65,81,0.4);
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-thumb { background: rgba(31,41,55,0.25); border-radius: 9999px; }
+</style>
+</head>
+<body class="h-screen w-screen m-0 p-0 overflow-hidden bg-transparent flex items-center justify-center">
+
+  <div class="w-full h-full bg-white/30 backdrop-blur-md border border-white/50 text-gray-800 font-mono flex flex-col">
+
+    <!-- title bar -->
+    <div class="flex items-center px-4 py-3 border-b border-white/50 shrink-0">
+      <span class="text-xs text-gray-600">sectersion@github: ~/about-me</span>
+    </div>
+
+    <!-- terminal body -->
+    <div id="terminal-body" class="flex-1 overflow-y-auto px-5 py-4 text-sm leading-relaxed">
+
+      <p><span class="text-emerald-700">sectersion@github</span><span class="text-gray-500">:~$</span> whoami</p>
+      <p class="mb-4 pl-0 text-gray-700">"I have probably been hacked." 💭</p>
+
+      <p><span class="text-emerald-700">sectersion@github</span><span class="text-gray-500">:~$</span> mesh-status --self</p>
+      <p class="mb-4 text-gray-700 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 status-dot"></span>
+        <span>node sectersion</span>
+        <span class="text-emerald-700 tracking-tighter">
+          <span class="sig-bar" style="animation-delay:0s">▂</span><span class="sig-bar" style="animation-delay:0.15s">▄</span><span class="sig-bar" style="animation-delay:0.3s">▆</span><span class="sig-bar" style="animation-delay:0.45s">█</span>
+        </span>
+        <span class="text-emerald-700">ONLINE</span>
+      </p>
+
+      <p><span class="text-emerald-700">sectersion@github</span><span class="text-gray-500">:~$</span> gh api users/sectersion</p>
+      <div class="mb-4 grid grid-cols-2 gap-x-6 gap-y-1 text-gray-700 max-w-md">
+        <span class="text-gray-500">repos</span><span>42</span>
+        <span class="text-gray-500">followers</span><span>4</span>
+        <span class="text-gray-500">following</span><span>6</span>
+        <span class="text-gray-500">stars given</span><span>9</span>
+        <span class="text-gray-500">achievements</span><span>Pull Shark · YOLO</span>
+      </div>
+
+      <p><span class="text-emerald-700">sectersion@github</span><span class="text-gray-500">:~$</span> cat interests.txt</p>
+      <ul class="mb-4 text-gray-700 list-none pl-0">
+        <li>- LoRa / Meshtastic mesh networking</li>
+        <li>- Embedded firmware (nRF52, ESP32)</li>
+        <li>- Open hardware &amp; PCB design (KiCad)</li>
+        <li>- Off-grid comms, mostly for fun</li>
+      </ul>
+
+      <p><span class="text-emerald-700">sectersion@github</span><span class="text-gray-500">:~$</span> man sectersion</p>
+      <div class="mb-4 text-gray-700 max-w-md">
+        <p class="flex justify-between text-[10px] text-gray-500 tracking-wide">
+          <span>SECTERSION(1)</span><span>GitHub Manual</span><span>SECTERSION(1)</span>
+        </p>
+        <p class="mt-2 font-semibold text-gray-800">NAME</p>
+        <p class="pl-6">sectersion — probably hacked, allegedly a developer</p>
+        <p class="mt-2 font-semibold text-gray-800">DESCRIPTION</p>
+        <p class="pl-6">Builds open-source mesh radios and embedded firmware. Status: online, occasionally suspicious.</p>
+        <p class="mt-2 font-semibold text-gray-800">SEE ALSO</p>
+        <p class="pl-6"><a href="https://github.com/sectersion" class="underline decoration-gray-400 hover:text-emerald-700">github.com/sectersion(1)</a></p>
+      </div>
+
+      <p><span class="text-emerald-700">sectersion@github</span><span class="text-gray-500">:~$</span> uptime</p>
+      <p class="mb-4 text-gray-700">session up <span id="uptime">0s</span></p>
+
+      <p><span class="text-emerald-700">sectersion@github</span><span class="text-gray-500">:~$</span> <span class="cursor">_</span></p>
+
+    </div>
+  </div>
+
+  <script>
+    const __start = Date.now();
+    const __el = document.getElementById('uptime');
+    function __fmtUptime(ms) {
+      let s = Math.floor(ms / 1000);
+      const h = Math.floor(s / 3600); s %= 3600;
+      const m = Math.floor(s / 60); s %= 60;
+      const parts = [];
+      if (h) parts.push(h + 'h');
+      if (h || m) parts.push((h && m < 10 ? '0' : '') + m + 'm');
+      parts.push((s < 10 ? '0' : '') + s + 's');
+      return parts.join(' ');
+    }
+    function __tickUptime() { if (__el) __el.textContent = __fmtUptime(Date.now() - __start); }
+    __tickUptime();
+    setInterval(__tickUptime, 1000);
+  </script>
+
+</body>
+</html>

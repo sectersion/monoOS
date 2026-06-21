@@ -1,0 +1,8 @@
+body {
+    font-family: sans-serif;
+    background: transparent;
+}
+#app-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
